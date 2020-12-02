@@ -27,7 +27,10 @@ val validation1: Validation = {
 }
 
 val validation2: Validation = {
-    (it.password[it.policy.a - 1] == it.policy.char) xor (it.password[it.policy.b - 1] == it.policy.char)
+    val pos1 = it.policy.a - 1
+    val pos2 = it.policy.b - 1
+    val char = it.policy.char
+    (it.password[pos1] == char) xor (it.password[pos2] == char)
 }
 
 fun parseLine(line: String): PasswordWithPolicy {
