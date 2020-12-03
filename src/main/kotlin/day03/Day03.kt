@@ -1,8 +1,16 @@
 package day03
 
-fun processWorld1(world: World): Int {
+fun processWorld1(world: World): Int =
+    treeCount(world, Slope(1, 3))
+
+fun processWorld2(world: World): Int =
+    listOf(Slope(1, 1), Slope(1, 3), Slope(1, 5), Slope(1, 7), Slope(2, 1))
+        .map { treeCount(world, it) }
+        .fold(1) { acc, cur -> acc * cur }
+
+internal fun treeCount(world: World, slope: Slope): Int {
     val maxX = world.count() - 1
-    val path = path(maxX)
+    val path = path(slope, maxX)
     return path.filter { pos -> world.hasTreeAt(pos) }.count()
 }
 
@@ -18,8 +26,14 @@ data class Pos(
     val y: Int
 )
 
-fun path(maxX: Int): List<Pos> =
-    generateSequence(Pos(0, 0)) { pos -> Pos(pos.x + 1, pos.y + 3) }
+operator fun Pos.plus(slope: Slope): Pos =
+    Pos(this.x + slope.x, this.y + slope.y)
+
+typealias Slope = Pos
+
+fun path(slope: Slope, maxX: Int): List<Pos> {
+    return generateSequence(Pos(0, 0)) { pos -> pos + slope }
         .takeWhile { pos -> pos.x <= maxX }
         .toList()
+}
 
