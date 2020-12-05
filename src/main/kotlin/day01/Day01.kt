@@ -2,38 +2,30 @@ package day01
 
 
 fun processLines1(lines: Sequence<String>): Int {
-    return pairs(lines.toListOfInt()).eval()
+    return findAndMultPair(2020, lines.toListOfInt()) ?: 0
 }
 
 fun processLines2(lines: Sequence<String>): Int {
-    return tripples(lines.toListOfInt()).eval()
+    return findAndMultTriple(2020, lines.toListOfInt()) ?: 0
 }
 
 private fun Sequence<String>.toListOfInt(): List<Int> =
     this.map(String::toInt).toList()
 
-private fun List<List<Int>>.eval(): Int =
-    this
-        .find { it.sum() == 2020 }
-        ?.reduce { acc, i -> acc * i } ?: 0
-
-internal fun pairs(xs: List<Int>): List<List<Int>> {
-    if (xs.size < 2) return emptyList()
-
-    val pairs = mutableListOf<List<Int>>()
-    xs.forEachIndexed { index, x ->
-        pairs.addAll(xs.drop(index + 1).map { y -> listOf(y, x) })
+private tailrec fun findAndMultPair(n: Int, ints: List<Int>): Int? {
+    val x = ints.firstOrNull() ?: return null
+    val xs = ints.drop(1)
+    return when (val y = xs.find { it == n - x }) {
+        null -> findAndMultPair(n, xs)
+        else -> x * y
     }
-    return pairs.toList()
 }
 
-internal fun tripples(xs: List<Int>): List<List<Int>> {
-    if (xs.size < 3) return emptyList()
-
-    val tripples = mutableListOf<List<Int>>()
-    xs.forEachIndexed { index, x ->
-        val pairs = pairs(xs.drop(index + 1))
-        tripples.addAll(pairs.map { p -> p + x })
+private tailrec fun findAndMultTriple(n: Int, ints: List<Int>): Int? {
+    val x = ints.firstOrNull() ?: return null
+    val xs = ints.drop(1)
+    return when (val y = findAndMultPair(n - x, xs)) {
+        null -> findAndMultTriple(n, xs)
+        else -> x * y
     }
-    return tripples.toList()
 }
