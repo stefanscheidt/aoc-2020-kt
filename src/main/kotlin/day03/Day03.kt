@@ -24,13 +24,13 @@ data class Pos(
     val y: Int
 )
 
+operator fun Pos.plus(other: Pos): Pos =
+    Pos(this.x + other.x, this.y + other.y)
+
 typealias Slope = Pos
 
 fun Slope.pathUpToX(maxX: Int): List<Pos> =
     generateSequence(Pos(0, 0)) { pos -> pos + this }
         .takeWhile { pos -> pos.x <= maxX }
         .toList()
-
-operator fun Pos.plus(slope: Slope): Pos =
-    Pos(this.x + slope.x, this.y + slope.y)
 
