@@ -11,7 +11,20 @@ fun processLines2(lines: Sequence<String>): Int =
         .first + 1
 
 fun Sequence<String>.toSeatIds(): Sequence<Int> =
-    this.map(String::toSeatOrNull).filterNotNull().map(Seat::id)
+    this.map(String::toSeatId)
+
+// inspired by https://github.com/rolf-rosenbaum/adventofcode2020/blob/main/src/main/kotlin/day5/Day5.kt
+
+private fun String.toSeatId(): Int = substring(0, 7)
+    .replace("F", "0")
+    .replace("B", "1")
+    .toInt(2) * 8 +
+        substring(7, 10)
+            .replace("L", "0")
+            .replace("R", "1")
+            .toInt(2)
+
+// my original solution
 
 val rows: IntRange =
     0..127
