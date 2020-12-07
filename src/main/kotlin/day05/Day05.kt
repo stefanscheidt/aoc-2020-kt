@@ -50,7 +50,7 @@ fun String.toSeatOrNull(): Seat? {
 fun narrow(range: IntRange, char: Char): IntRange {
     val half = (range.last + 1 - range.first) / 2
     return when (char) {
-        'F', 'L' -> range.first until range.last - half + 1
+        'F', 'L' -> range.first..range.last - half
         'B', 'R' -> range.first + half..range.last
         else -> range
     }
