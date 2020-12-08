@@ -21,6 +21,7 @@ val sample: String =
         a
 
         b
+        
     """.trimIndent()
 
 class Day06Test {
@@ -46,24 +47,7 @@ class Day06Test {
     fun `process text 2`() {
         val text = File("./input/day06.txt").readText()
 
-        processText2(text) shouldBe 3431
+        processText2(text) shouldBe 3445
     }
 
 }
-
-fun processText1(text: String): Int =
-    text.split("\n\n")
-        .map { group ->
-            group.toSet().count { c -> c.isLetter() }
-        }
-        .sum()
-
-fun processText2(text: String): Int =
-    text.split("\n\n")
-        .map { group ->
-            group.split("\n")
-                .map(String::toSet)
-                .reduce { acc, set -> acc.intersect(set) }
-                .count()
-        }
-        .sum()
