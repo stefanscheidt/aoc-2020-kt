@@ -85,9 +85,8 @@ fun containers(ruleset: Ruleset, bags: List<Bag>): List<Bag> =
 
 fun allContainers(ruleset: Ruleset, bag: Bag): List<Bag> {
     tailrec fun go(ruleset: Ruleset, acc: Pair<List<Bag>, List<Bag>>): Pair<List<Bag>, List<Bag>> {
-        val current = acc.first
+        val (current, sum) = acc
         val next = containers(ruleset, current)
-        val sum = acc.second
         return when {
             next.isEmpty() -> Pair(emptyList(), sum)
             else -> go(ruleset, Pair(next, sum + next))
