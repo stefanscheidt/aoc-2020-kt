@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm") version "1.4.20"
+    kotlin("jvm") version "1.4.21"
     id("com.github.ben-manes.versions") version "0.36.0"
 }
 
@@ -25,7 +25,7 @@ tasks.withType<Test> {
 
 dependencies {
     val junitVersion = "5.7.0"
-    val kotestVersion = "4.3.1"
+    val kotestVersion = "4.3.2"
 
     implementation(kotlin("stdlib-jdk8"))
 
