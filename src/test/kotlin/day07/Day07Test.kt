@@ -77,22 +77,22 @@ fun parseRules(input: String): List<Rule> =
 
 typealias Ruleset = Map<Bag, List<Bag>>
 
-fun containers(ruleset: Ruleset, bag: Bag): List<Bag> =
-    ruleset.keys.filter { ruleset[it]?.contains(bag) ?: false }
+fun containers(ruleset: Ruleset, bag: Bag): Set<Bag> =
+    ruleset.keys.filter { ruleset[it]?.contains(bag) ?: false }.toSet()
 
-fun containers(ruleset: Ruleset, bags: List<Bag>): List<Bag> =
-    bags.flatMap { bag -> containers(ruleset, bag) }.distinct()
+fun containers(ruleset: Ruleset, bags: Set<Bag>): Set<Bag> =
+    bags.flatMap { bag -> containers(ruleset, bag) }.toSet()
 
-fun allContainers(ruleset: Ruleset, bag: Bag): List<Bag> {
-    tailrec fun go(ruleset: Ruleset, acc: Pair<List<Bag>, List<Bag>>): Pair<List<Bag>, List<Bag>> {
+fun allContainers(ruleset: Ruleset, bag: Bag): Set<Bag> {
+    tailrec fun go(ruleset: Ruleset, acc: Pair<Set<Bag>, Set<Bag>>): Pair<Set<Bag>, Set<Bag>> {
         val (current, sum) = acc
         val next = containers(ruleset, current)
         return when {
-            next.isEmpty() -> Pair(emptyList(), sum)
+            next.isEmpty() -> Pair(emptySet(), sum)
             else -> go(ruleset, Pair(next, sum + next))
         }
     }
 
-    val init = Pair(listOf(bag), emptyList<Bag>())
-    return go(ruleset, init).second.distinct()
+    val init = Pair(setOf(bag), emptySet<Bag>())
+    return go(ruleset, init).second
 }
