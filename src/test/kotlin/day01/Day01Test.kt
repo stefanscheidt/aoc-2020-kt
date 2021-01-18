@@ -5,12 +5,7 @@ import org.junit.jupiter.api.Test
 import java.io.File
 import java.nio.charset.StandardCharsets
 
-
-class Day01Test {
-
-    @Test
-    fun `process sample 1`() {
-        val sample = """
+val sample = """
             1721
             979
             366
@@ -18,20 +13,17 @@ class Day01Test {
             675
             1456
         """.trimIndent()
+
+class Day01Test {
+
+    @Test
+    fun `process sample 1`() {
         val result = processLines1(sample.lineSequence())
         result shouldBe 514579
     }
 
     @Test
     fun `process sample 2`() {
-        val sample = """
-            1721
-            979
-            366
-            299
-            675
-            1456
-        """.trimIndent()
         val result = processLines2(sample.lineSequence())
         result shouldBe 241861950
     }
