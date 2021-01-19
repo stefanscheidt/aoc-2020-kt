@@ -70,7 +70,7 @@ private fun Program.flippedAt(index: Int): Program =
 fun fixProgramm(prog: Program): Computer =
     (0..prog.size).asSequence()
         .mapNotNull { idx ->
-            if (prog[idx] is Acc) null
+            if (prog[idx].flipped() == prog[idx]) null
             else runProgramm(prog.flippedAt(idx))
         }
         .dropWhile { it.state != HALTED }
