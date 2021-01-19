@@ -1,5 +1,6 @@
 package day08
 
+import day08.ComputerState.HALTED
 import day08.ComputerState.LOOPING
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
@@ -39,5 +40,26 @@ class Day08Test {
         result.state shouldBe LOOPING
         result.acc shouldBe 1394
     }
+
+    @Test
+    fun `process sample 2`() {
+        val program = parseProgramm(sample)
+
+        val result = fixProgramm(program)
+
+        result.state shouldBe HALTED
+        result.acc shouldBe 8
+    }
+
+    @Test
+    fun `process input 2`() {
+        val program = parseProgramm(File("./input/day08.txt").readLines())
+
+        val result = fixProgramm(program)
+
+        result.state shouldBe HALTED
+        result.acc shouldBe 1626
+    }
+
 }
 
