@@ -1,10 +1,7 @@
 plugins {
-    kotlin("jvm") version "1.4.21"
-    id("com.github.ben-manes.versions") version "0.36.0"
+    kotlin("jvm") version "1.5.31"
+    id("com.github.ben-manes.versions") version "0.39.0"
 }
-
-group = "org.example"
-version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
@@ -24,10 +21,8 @@ tasks.withType<Test> {
 }
 
 dependencies {
-    val junitVersion = "5.7.0"
-    val kotestVersion = "4.3.2"
-
-    implementation(kotlin("stdlib-jdk8"))
+    val junitVersion = "5.8.1"
+    val kotestVersion = "4.6.3"
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
