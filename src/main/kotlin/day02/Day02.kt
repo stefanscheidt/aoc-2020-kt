@@ -1,9 +1,6 @@
 package day02
 
-import com.github.h0tk3y.betterParse.combinators.and
-import com.github.h0tk3y.betterParse.combinators.times
-import com.github.h0tk3y.betterParse.combinators.unaryMinus
-import com.github.h0tk3y.betterParse.combinators.use
+import com.github.h0tk3y.betterParse.combinators.*
 import com.github.h0tk3y.betterParse.grammar.Grammar
 import com.github.h0tk3y.betterParse.grammar.parseToEnd
 import com.github.h0tk3y.betterParse.lexer.literalToken
@@ -46,7 +43,6 @@ val validation2: Validation = {
 val day02Grammar = object : Grammar<PasswordWithPolicy>() {
     val num by regexToken("\\d+")
     val chr by regexToken("\\w")
-    val passwd by regexToken("\\w+")
     val dash by literalToken("-", ignore = true)
     val colon by literalToken(":", ignore = true)
     val ws by regexToken("\\s+", ignore = true)
@@ -61,9 +57,9 @@ val day02Grammar = object : Grammar<PasswordWithPolicy>() {
             }
 
     override val rootParser: Parser<PasswordWithPolicy>
-            by (policy and -colon * -ws * passwd) use {
+            by (policy and -colon * -ws * oneOrMore(chr)) use {
                 PasswordWithPolicy(
-                    password = t2.text, // t2.joinToString(separator = "") { it.text },
+                    password = t2.joinToString(separator = "") { it.text },
                     policy = t1
                 )
             }
