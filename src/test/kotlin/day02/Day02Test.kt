@@ -1,5 +1,6 @@
 package day02
 
+import com.github.h0tk3y.betterParse.grammar.parseToEnd
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 import java.io.File
@@ -44,6 +45,6 @@ class Day02Test {
 
     @Test
     fun `parse a line`() {
-        parseLine("1-3 a: abcde") shouldBe PasswordWithPolicy("abcde", Policy(1, 3, 'a'))
+        day02Grammar.parseToEnd("1-3 a: abcde") shouldBe PasswordWithPolicy("abcde", Policy(1, 3, 'a'))
     }
 }
