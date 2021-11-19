@@ -6,7 +6,6 @@ import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 import java.io.File
 
-
 val sample = """
     nop +0
     acc +1
@@ -60,6 +59,5 @@ class Day08Test {
         result.state shouldBe HALTED
         result.acc shouldBe 1626
     }
-
 }
 

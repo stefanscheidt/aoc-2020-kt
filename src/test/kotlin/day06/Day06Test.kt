@@ -49,5 +49,4 @@ class Day06Test {
 
         processText2(text) shouldBe 3445
     }
-
 }

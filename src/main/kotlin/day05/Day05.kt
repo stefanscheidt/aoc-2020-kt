@@ -1,6 +1,5 @@
 package day05
 
-
 fun processLines1(lines: Sequence<String>): Int =
     lines.toSeatIds().maxOrNull() ?: 0
 
@@ -19,10 +18,10 @@ private fun String.toSeatId(): Int = substring(0, 7)
     .replace("F", "0")
     .replace("B", "1")
     .toInt(2) * 8 +
-        substring(7, 10)
-            .replace("L", "0")
-            .replace("R", "1")
-            .toInt(2)
+    substring(7, 10)
+        .replace("L", "0")
+        .replace("R", "1")
+        .toInt(2)
 
 // my original solution
 

@@ -1,6 +1,5 @@
 package day06
 
-
 fun processText1(text: String): Int =
     text.split("\n\n")
         .map { group ->

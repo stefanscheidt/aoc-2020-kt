@@ -1,12 +1,15 @@
 package day02
 
-import com.github.h0tk3y.betterParse.combinators.*
+import com.github.h0tk3y.betterParse.combinators.and
+import com.github.h0tk3y.betterParse.combinators.oneOrMore
+import com.github.h0tk3y.betterParse.combinators.times
+import com.github.h0tk3y.betterParse.combinators.unaryMinus
+import com.github.h0tk3y.betterParse.combinators.use
 import com.github.h0tk3y.betterParse.grammar.Grammar
 import com.github.h0tk3y.betterParse.grammar.parseToEnd
 import com.github.h0tk3y.betterParse.lexer.literalToken
 import com.github.h0tk3y.betterParse.lexer.regexToken
 import com.github.h0tk3y.betterParse.parser.Parser
-
 
 fun processLines(lines: Sequence<String>, validation: Validation): Int =
     lines.map { day02Grammar.parseToEnd(it) }
@@ -48,19 +51,19 @@ val day02Grammar = object : Grammar<PasswordWithPolicy>() {
     val ws by regexToken("\\s+", ignore = true)
 
     val policy: Parser<Policy>
-            by (num * -dash * num * -ws * chr) use {
-                Policy(
-                    a = t1.text.toInt(),
-                    b = t2.text.toInt(),
-                    char = t3.text[0]
-                )
-            }
+        by (num * -dash * num * -ws * chr) use {
+            Policy(
+                a = t1.text.toInt(),
+                b = t2.text.toInt(),
+                char = t3.text[0]
+            )
+        }
 
     override val rootParser: Parser<PasswordWithPolicy>
-            by (policy and -colon * -ws * oneOrMore(chr)) use {
-                PasswordWithPolicy(
-                    password = t2.joinToString(separator = "") { it.text },
-                    policy = t1
-                )
-            }
+        by (policy and -colon * -ws * oneOrMore(chr)) use {
+            PasswordWithPolicy(
+                password = t2.joinToString(separator = "") { it.text },
+                policy = t1
+            )
+        }
 }

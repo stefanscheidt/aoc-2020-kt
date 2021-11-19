@@ -39,5 +39,4 @@ class Day01Test {
         val result = File("./input/day01.txt").useLines(StandardCharsets.UTF_8, ::processLines2)
         result shouldBe 195700142
     }
-
 }

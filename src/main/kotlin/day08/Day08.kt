@@ -1,6 +1,8 @@
 package day08
 
-import day08.ComputerState.*
+import day08.ComputerState.HALTED
+import day08.ComputerState.LOOPING
+import day08.ComputerState.RUNNING
 
 sealed class Instruction
 data class Acc(val arg: Int) : Instruction()

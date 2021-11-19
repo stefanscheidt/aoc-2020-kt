@@ -1,6 +1,5 @@
 package day07
 
-
 typealias Bag = String
 
 data class Content(val bag: Bag, val quantity: Int)

@@ -1,6 +1,5 @@
 package day01
 
-
 fun processLines1(lines: Sequence<String>): Int {
     return findAndMultPair(2020, lines.toListOfInt()) ?: 0
 }

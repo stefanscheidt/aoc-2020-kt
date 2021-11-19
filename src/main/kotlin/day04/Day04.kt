@@ -2,7 +2,6 @@ package day04
 
 import kotlin.collections.Map.Entry
 
-
 fun processLines1(lines: Sequence<String>): Int =
     lines.normalise()
         .map(String::toPassport)

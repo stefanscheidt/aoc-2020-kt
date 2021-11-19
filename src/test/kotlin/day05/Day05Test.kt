@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test
 import java.io.File
 import java.nio.charset.StandardCharsets
 
-
 class Day05Test {
 
     @Test
