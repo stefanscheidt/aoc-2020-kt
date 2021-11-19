@@ -8,14 +8,9 @@ repositories {
     mavenCentral()
 }
 
-tasks {
-    compileKotlin {
-        dependsOn("ktlintCheck")
-        kotlinOptions.jvmTarget = "11"
-    }
-    compileTestKotlin {
-        kotlinOptions.jvmTarget = "11"
-    }
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    dependsOn("ktlintCheck")
+    kotlinOptions.jvmTarget = "11"
 }
 
 tasks.withType<Test> {
