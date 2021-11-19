@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     kotlin("jvm") version "1.6.0"
     id("com.github.ben-manes.versions") version "0.39.0"
@@ -8,13 +10,16 @@ repositories {
     mavenCentral()
 }
 
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-    dependsOn("ktlintCheck")
+tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "11"
 }
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+tasks.check {
+    dependsOn("ktlintCheck")
 }
 
 dependencies {
