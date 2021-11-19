@@ -10,6 +10,7 @@ repositories {
 
 tasks {
     compileKotlin {
+        dependsOn("ktlintCheck")
         kotlinOptions.jvmTarget = "11"
     }
     compileTestKotlin {
