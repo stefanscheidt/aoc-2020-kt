@@ -50,20 +50,11 @@ val day02Grammar = object : Grammar<PasswordWithPolicy>() {
     val colon by literalToken(":", ignore = true)
     val ws by regexToken("\\s+", ignore = true)
 
-    val policy: Parser<Policy>
-        by (num * -dash * num * -ws * chr) use {
-            Policy(
-                a = t1.text.toInt(),
-                b = t2.text.toInt(),
-                char = t3.text[0]
-            )
-        }
+    val policy: Parser<Policy> by (num * -dash * num * -ws * chr) use {
+        Policy(a = t1.text.toInt(), b = t2.text.toInt(), char = t3.text[0])
+    }
 
-    override val rootParser: Parser<PasswordWithPolicy>
-        by (policy and -colon * -ws * oneOrMore(chr)) use {
-            PasswordWithPolicy(
-                password = t2.joinToString(separator = "") { it.text },
-                policy = t1
-            )
-        }
+    override val rootParser: Parser<PasswordWithPolicy> by (policy and -colon * -ws * oneOrMore(chr)) use {
+        PasswordWithPolicy(password = t2.joinToString(separator = "") { it.text }, policy = t1)
+    }
 }

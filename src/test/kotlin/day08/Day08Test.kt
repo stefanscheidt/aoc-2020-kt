@@ -16,7 +16,7 @@ val sample = """
     acc +1
     jmp -4
     acc +6
-    """.trimIndent().lines()
+""".trimIndent().lines()
 
 class Day08Test {
 
@@ -60,4 +60,3 @@ class Day08Test {
         result.acc shouldBe 1626
     }
 }
-

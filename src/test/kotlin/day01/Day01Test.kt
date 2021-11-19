@@ -12,7 +12,7 @@ val sample = """
             299
             675
             1456
-        """.trimIndent()
+""".trimIndent()
 
 class Day01Test {
 

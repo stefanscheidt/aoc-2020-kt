@@ -80,4 +80,3 @@ class Day04Test {
         result shouldBe 179
     }
 }
-

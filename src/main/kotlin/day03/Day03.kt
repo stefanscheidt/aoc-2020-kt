@@ -33,4 +33,3 @@ fun Slope.pathUpToX(maxX: Int): List<Pos> =
     generateSequence(Pos(0, 0)) { pos -> pos + this }
         .takeWhile { pos -> pos.x <= maxX }
         .toList()
-
