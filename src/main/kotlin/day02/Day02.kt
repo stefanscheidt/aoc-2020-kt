@@ -1,8 +1,15 @@
 package day02
 
+import com.github.h0tk3y.betterParse.combinators.*
+import com.github.h0tk3y.betterParse.grammar.Grammar
+import com.github.h0tk3y.betterParse.grammar.parseToEnd
+import com.github.h0tk3y.betterParse.lexer.literalToken
+import com.github.h0tk3y.betterParse.lexer.regexToken
+import com.github.h0tk3y.betterParse.parser.Parser
+
 
 fun processLines(lines: Sequence<String>, validation: Validation): Int =
-    lines.map(::parseLine)
+    lines.map { day02Grammar.parseToEnd(it) }
         .filter(validation)
         .count()
 
@@ -33,13 +40,27 @@ val validation2: Validation = {
     (it.password[pos1] == char) xor (it.password[pos2] == char)
 }
 
-fun parseLine(line: String): PasswordWithPolicy {
-    val s1 = line.split(" ")
-    val s2 = s1[0].split("-")
-    val a = s2[0].toInt()
-    val b = s2[1].toInt()
-    val char = s1[1][0]
-    val password = s1[2]
-    return PasswordWithPolicy(password, Policy(a, b, char))
-}
+val day02Grammar = object : Grammar<PasswordWithPolicy>() {
+    val num by regexToken("\\d+")
+    val chr by regexToken("\\w")
+    val dash by literalToken("-", ignore = true)
+    val colon by literalToken(":", ignore = true)
+    val ws by regexToken("\\s+", ignore = true)
 
+    val policy: Parser<Policy>
+            by (num * -dash * num * -ws * chr) use {
+                Policy(
+                    a = t1.text.toInt(),
+                    b = t2.text.toInt(),
+                    char = t3.text[0]
+                )
+            }
+
+    override val rootParser: Parser<PasswordWithPolicy>
+            by (policy and -colon * -ws * oneOrMore(chr)) use {
+                PasswordWithPolicy(
+                    password = t2.joinToString(separator = "") { it.text },
+                    policy = t1
+                )
+            }
+}
